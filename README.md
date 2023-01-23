@@ -18,7 +18,7 @@ All custom styles have commands in the command palette to toggle them on selecte
 
 ## Demo Video
 
-![Demo of the features of the Extra Styles Plugin](https://raw.githubusercontent.com/ironfroggy/obsidian-extra-styles-plugin/main/media/extra_styles_demo.mp4)
+https://user-images.githubusercontent.com/34982/214124184-9cfcb6ef-3f0f-46fc-bbdf-2bb5662ed87a.mp4
 
 ## How to develop
 
