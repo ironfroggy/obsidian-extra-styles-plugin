@@ -18,9 +18,7 @@ All custom styles have commands in the command palette to toggle them on selecte
 
 ## Demo Video
 
-![basic functionality](https://raw.githubusercontent.com/ironfroggy/advanced-tables-obsidian/main/media/extra_styles_demo.mp4)
-
-![Demo of the features of the Extra Styles Plugin](./media/extra_styles_demo.mp4)
+![Demo of the features of the Extra Styles Plugin](https://raw.githubusercontent.com/ironfroggy/obsidian-extra-styles-plugin/main/media/extra_styles_demo.mp4)
 
 ## How to develop
 
