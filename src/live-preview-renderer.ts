@@ -86,7 +86,7 @@ class InlineWidget extends WidgetType {
     eq(other: InlineWidget): boolean {
         if (other.rawQuery === this.rawQuery) {
             // change CSS classes without redrawing the element
-            for (let value of other.cssClasses) {
+            for (const value of other.cssClasses) {
                 if (!this.cssClasses.includes(value)) {
                     this.el.removeClass(value);
                 } else {
@@ -112,7 +112,7 @@ class InlineWidget extends WidgetType {
      */
     ignoreEvent(event: MouseEvent | Event): boolean {
         if (event.type === "mousedown") {
-            let targetEl = event.target as HTMLElement;
+            const targetEl = event.target as HTMLElement;
             const mousePos = {
                 x: (event as MouseEvent).x,
                 y: (event as MouseEvent).y,
@@ -123,11 +123,11 @@ class InlineWidget extends WidgetType {
                 const editorView = this.view.state.field(editorEditorField);
                 const { editor } = editorView.state.field(editorViewField); 
 
-                let startPos = endPos - targetEl.innerText.length - 3;
-                let rect = targetEl.getBoundingClientRect();
-                let ratio = ( mousePos.x - rect.x) / rect.width;
-                let currentPos = Math.round(targetEl.innerText.length * ratio);
-                let newCursor = editor.offsetToPos(startPos + currentPos);
+                const startPos = endPos - targetEl.innerText.length - 3;
+                const rect = targetEl.getBoundingClientRect();
+                const ratio = ( mousePos.x - rect.x) / rect.width;
+                const currentPos = Math.round(targetEl.innerText.length * ratio);
+                const newCursor = editor.offsetToPos(startPos + currentPos);
 
                 editor.setCursor(newCursor);
 
@@ -199,7 +199,7 @@ function inlineRender(view: EditorView, plugin: ExtraStylesPlugin, settings: Ext
                 }
 
                 const src = view.state.doc.sliceString(start, end);
-                let code: string = "";
+                let code = "";
                 const el = createSpan({
                     cls: [],
                 });
@@ -210,14 +210,14 @@ function inlineRender(view: EditorView, plugin: ExtraStylesPlugin, settings: Ext
                  * asynchronous.
                  */
 
-                let result = parseInline(plugin, src);
+                const result = parseInline(plugin, src);
                 if (result === null) {
                     return;
                 }
                 switch (result.constructor) {
                     case InlineStyled:
-                        let inline = result as InlineStyled
-                        let renderer = new ExtraStyleMarkdownRenderChild(plugin, el, inline.style, inline.text)
+                        const inline = result as InlineStyled
+                        const renderer = new ExtraStyleMarkdownRenderChild(plugin, el, inline.style, inline.text)
                         renderer.render()
                         code = inline.text
                         break;
@@ -257,8 +257,8 @@ export function inlinePlugin(plugin: ExtraStylesPlugin, settings: ExtraStylesPlu
                     this.decorations = Decoration.none;
                     return;
                 }
-                let curSettings = JSON.stringify(settings);
-                let settingsChanged = curSettings !== lastSettings;
+                const curSettings = JSON.stringify(settings);
+                const settingsChanged = curSettings !== lastSettings;
                 if (settingsChanged) {
                     lastSettings = curSettings
                 }

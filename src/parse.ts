@@ -5,7 +5,7 @@ import {
 
 
 function joinRegExp(reg_exprs: RegExp[]): RegExp {
-    let reg_expr_parts: string[] = []
+    const reg_expr_parts: string[] = []
     for (let i = 0; i < reg_exprs.length; i++) {
         const reg_expr = reg_exprs[i];
         reg_expr_parts.push(reg_expr.source)
@@ -58,7 +58,7 @@ function escapeRegex(pattern: string) {
 }
 
 function tryParseOneStyle(style: StyleRule, text: string) {
-    let re = joinRegExp([
+    const re = joinRegExp([
         /^/,
         new RegExp(escapeRegex(style.open)),
         /(?<text>.*)/,
@@ -85,7 +85,7 @@ export function parseInline(plugin: ExtraStylesPlugin, input: HTMLElement | stri
 
     for (let i = 0; i < plugin.settings.styleList.length; i++) {
         const style = plugin.settings.styleList[i];
-        let parsedInline = tryParseOneStyle(style, text);
+        const parsedInline = tryParseOneStyle(style, text);
         if (parsedInline !== null) {
             return parsedInline
         }

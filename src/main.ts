@@ -160,7 +160,7 @@ export default class ExtraStylesPlugin extends Plugin {
 
 	registerCommands() {
 		// @ts-ignore
-		for (let commandId in this.app.commands.commands) {
+		for (const commandId in this.app.commands.commands) {
 			if (commandId.startsWith(PLUGIN_ID)) {
 				// @ts-ignore
 				this.app.commands.removeCommand(commandId)
@@ -168,29 +168,29 @@ export default class ExtraStylesPlugin extends Plugin {
 		}
 
 		this.settings.styleList.forEach(style => {
-			let commandId = `extra-styles-toggle-${style.name.toLowerCase()}`;
+			const commandId = `extra-styles-toggle-${style.name.toLowerCase()}`;
 			this.addCommand({
 				id: commandId,
 				name: `Toggle ${style.name}`,
 				editorCallback: (editor: Editor) => {
-					let cur = editor.getCursor();
-					let line = editor.getLine(cur.line);
-					let match = line.match(/`(?<inlinecode>.*)`/);
+					const cur = editor.getCursor();
+					const line = editor.getLine(cur.line);
+					const match = line.match(/`(?<inlinecode>.*)`/);
 					if (match && match.groups) {
-						let index = match.index as number
+						const index = match.index as number
 
 						if (cur.ch >= index && cur.ch <= index + match[0].length) {
-							let length = match.groups.inlinecode.length
-							let start = {line: cur.line, ch: index}
-							let end = {line: cur.line, ch: index + length + 2}
-							let range = editor.getRange(start, end)
+							const length = match.groups.inlinecode.length
+							const start = {line: cur.line, ch: index}
+							const end = {line: cur.line, ch: index + length + 2}
+							const range = editor.getRange(start, end)
 							
 							editor.replaceRange(range.substring(2, range.length - 2), start, end)
 							return;
 						}
 					}
 
-					let selections = reorderSelections(editor.listSelections())
+					const selections = reorderSelections(editor.listSelections())
 					let cursorOffset = 0
 					if (selections.length > 0) {
 						for (let i = 0; i < selections.length; i++) {
@@ -210,12 +210,12 @@ export default class ExtraStylesPlugin extends Plugin {
 							} else {
 
 								let selectionText = editor.getRange(selection.anchor, selection.head)
-								let pre_ws = selectionText.match(/^\s*/)
+								const pre_ws = selectionText.match(/^\s*/)
 								if (pre_ws) {
 									selection.anchor.ch += pre_ws[0].length
 									selectionText = editor.getRange(selection.anchor, selection.head)
 								}
-								let post_ws = selectionText.match(/\s*$/)
+								const post_ws = selectionText.match(/\s*$/)
 								if (post_ws) {
 									selection.head.ch -= post_ws[0].length
 									selectionText = editor.getRange(selection.anchor, selection.head)
@@ -243,7 +243,7 @@ export default class ExtraStylesPlugin extends Plugin {
 	}
 
 	getSettingsHash() {
-		let h = createHash("md5")
+		const h = createHash("md5")
 		h.write(JSON.stringify(this.settings))
 		return h.digest().toString("hex")
 	}
@@ -253,18 +253,18 @@ export default class ExtraStylesPlugin extends Plugin {
 		context: Component | MarkdownPostProcessorContext,
 		sourcePath: string
 	) {
-		let codeblocks = el.querySelectorAll("code");
+		const codeblocks = el.querySelectorAll("code");
 		for (let index = 0; index < codeblocks.length; index++) {
-			let codeblock = codeblocks.item(index);
+			const codeblock = codeblocks.item(index);
 
-			let result = parseInline(this, codeblock)
+			const result = parseInline(this, codeblock)
 			if (result === null) {
 				continue;
 			}
 
 			switch (result.constructor) {
 				case InlineStyled:
-					let inline = <InlineStyled> result
+					const inline = <InlineStyled> result
 						context.addChild(new ExtraStyleMarkdownRenderChild(
 							this,
 							codeblock,
@@ -383,7 +383,7 @@ class SampleSettingTab extends PluginSettingTab {
 					const t = text.setPlaceholder("CSS Properties")
 					.setValue(this.plugin.settings.styleList[index].css)
 					.onChange((new_value) => {
-						let css = this.normalizeCSS(new_value);
+						const css = this.normalizeCSS(new_value);
 						this.plugin.settings.styleList[index].css = css;
 						this.plugin.saveSettings();
 					});
@@ -394,7 +394,7 @@ class SampleSettingTab extends PluginSettingTab {
 				.addExtraButton((button) => {
 					const t = button.setIcon("copy")
 					button.onClick(async () => {
-						let style = {...this.plugin.settings.styleList[index]};
+						const style = {...this.plugin.settings.styleList[index]};
 						this.plugin.settings.styleList.splice(index, 0, style);
 						await this.plugin.saveSettings();
 						this.display();

@@ -56,11 +56,11 @@ export default class ExtraStyleMarkdownRenderChild extends MarkdownRenderChild {
 		container.addClass(`${ID_PREFIX}-style-span`);
 		this.containerEl.addClass(`${ID_PREFIX}-style-ctn`);
 		
-		let styleSettings = this.plugin.settings.getStyle(this.style)
-		let el = container.createEl((styleSettings?.tagName || "span") as any, {
+		const styleSettings = this.plugin.settings.getStyle(this.style)
+		const el = container.createEl((styleSettings?.tagName || "span") as any, {
 			"text": this.text,
 		});
-		if (!!styleSettings?.css) {
+		if (styleSettings?.css) {
 			el.setAttr("style", styleSettings.css.replace(/([;\s])[;\n]*]\n/, "$1"));
 		}
 	
