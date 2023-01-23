@@ -20,7 +20,6 @@ import {
 	InlineStyled,
 } from "./parse";
 import ExtraStyleMarkdownRenderChild from "./render";
-import { createHash } from 'crypto';
 import { PLUGIN_NAME, PLUGIN_ID } from './constants';
 
 
@@ -101,7 +100,15 @@ function reorderSelections(selections: EditorSelection[]): EditorSelection[] {
 		a.anchor.line - b.anchor.line || a.anchor.ch - b.anchor.ch
 	);
 	return selections
-} 
+}
+
+async function hexDigest(message: string) {
+	const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
+	const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the message
+	const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+	const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+	return hashHex;
+}
 
 
 export default class ExtraStylesPlugin extends Plugin {
@@ -127,19 +134,6 @@ export default class ExtraStylesPlugin extends Plugin {
 		// this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 		
 		this.registerCommands()
-
-		// this.settings.styleList.forEach(style => {
-		// 	if (typeof style.css !== "string") {
-		// 		let def_style = DEFAULT_SETTINGS.getStyle(style.name)
-		// 		if (def_style) {
-		// 			style.css = def_style.css
-		// 		} else {
-		// 			style.css = Object.keys(style.css)
-		// 				.map(name => `${name}: ${style.css[name as any]}`)
-		// 				.join(";\n")
-		// 		}
-		// 	}
-		// })
 	}
 
 	onunload() {
@@ -243,9 +237,7 @@ export default class ExtraStylesPlugin extends Plugin {
 	}
 
 	getSettingsHash() {
-		const h = createHash("md5")
-		h.write(JSON.stringify(this.settings))
-		return h.digest().toString("hex")
+		return hexDigest(JSON.stringify(this.settings));
 	}
 	
 	public async extraStylesInline(

@@ -79,7 +79,7 @@ export function parseInline(plugin: ExtraStylesPlugin, input: HTMLElement | stri
     if (typeof input === "string") {
         text = input as string
     } else {
-        text = (input as HTMLElement).innerHTML
+        text = (input as HTMLElement).innerText
     }
     // console.log(`input: ${typeof input} = ${input}, text: ${typeof text} = ${text}, `);
 
