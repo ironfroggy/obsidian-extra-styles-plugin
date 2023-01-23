@@ -1,0 +1,56 @@
+/*
+
+This CSS file will be included with your plugin, and
+available in the app when your plugin is enabled.
+
+If your plugin does not need CSS, delete this file.
+
+*/
+
+.markdown-rendered .extra-styles-style-ctn {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: inherit;
+    padding: 0;
+}
+
+.extra-styles-settings-tab .setting-item-control {
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.extra-styles-settings-tab
+.setting-item-control
+:not(.setting-editor-extra-setting-button) 
++ .setting-editor-extra-setting-button {
+    margin-left: auto;
+}
+
+.extra-styles-settings-tab
+.setting-item-control
+.setting-editor-extra-setting-button {
+    align-self: center;
+}
+
+.extra-styles-settings-tab
+.setting-item-control
+textarea {
+    flex-grow: 1;
+}
+
+.extra-styles-settings-tab
+.extra-styles-setting-add-style
+.setting-item-control
+{
+    justify-content: flex-end;
+}
+
+.extra-styles-setting-header input,
+.extra-styles-setting-header textarea
+{
+    background-color: inherit;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+}
