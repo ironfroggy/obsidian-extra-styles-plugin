@@ -2,7 +2,7 @@ import {
 	MarkdownRenderChild,
 } from 'obsidian';
 import {
-    ID_PREFIX,
+    PLUGIN_ID,
     PLUGIN_NAME,
 } from "./constants";
 import ExtraStylesPlugin from './main';
@@ -18,13 +18,13 @@ const STYLE_TYPES: StyleMap = {
 	"underline": {
 		"tagName": "u",
 		"classes": [
-			// `${ID_PREFIX}-text-underline`
+			// `${PLUGIN_ID}-text-underline`
 		],
 	},
 	"highlight": {
 		"tagName": "span",
 		"classes": [
-			`${ID_PREFIX}-text-highlight`
+			`${PLUGIN_ID}-text-highlight`
 		],
 	}
 }
@@ -53,14 +53,14 @@ export default class ExtraStyleMarkdownRenderChild extends MarkdownRenderChild {
 	
 	render() {
 		const container: HTMLSpanElement = this.containerEl.createEl("span");
-		container.addClass(`${ID_PREFIX}-style-span`);
-		this.containerEl.addClass(`${ID_PREFIX}-style-ctn`);
+		container.addClass(`${PLUGIN_ID}-style-span`);
+		this.containerEl.addClass(`${PLUGIN_ID}-style-ctn`);
 		
-		const styleSettings = this.plugin.settings.getStyle(this.style)
-		const el = container.createEl((styleSettings?.tagName || "span") as any, {
+		let styleSettings = this.plugin.settings.getStyle(this.style)
+		let el = container.createEl((styleSettings?.tagName || "span") as any, {
 			"text": this.text,
 		});
-		if (styleSettings?.css) {
+		if (!!styleSettings?.css) {
 			el.setAttr("style", styleSettings.css.replace(/([;\s])[;\n]*]\n/, "$1"));
 		}
 	

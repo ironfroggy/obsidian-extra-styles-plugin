@@ -299,39 +299,35 @@ class SampleSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName('Custom Style')
 			.setDesc('Define a custom style with open/close regular expressions and CSS rules.')
-		
-		const s = new Setting(containerEl)
-			.addText(text => {
-				const t = text.setValue("Style Name")
-				t.inputEl.disabled = true;
-				t.inputEl.style.width = "15%"
-			})
-			.addText(text => {
-				const t = text.setValue("Open")
-				t.inputEl.disabled = true;
-				t.inputEl.style.width = "5%"
-			})
-			.addText(text => {
-				const t = text.setValue("Close")
-				t.inputEl.disabled = true;
-				t.inputEl.style.width = "5%"
-			})
-			.addText(text => {
-				const t = text.setValue("Tag")
-				t.inputEl.disabled = true;
-				t.inputEl.style.width = "10%"
-			})
-			.addText(text => {
-				const t = text.setValue("CSS")
-				t.inputEl.disabled = true;
-				t.inputEl.style.width = "55%"
-			})
-			.addText(text => {
-				const t = text.setValue("")
-				t.inputEl.disabled = true;
-				t.inputEl.style.width = "10%"
-			})
-		s.setClass("extra-styles-setting-header")
+
+		const s = new Setting(containerEl);
+		s.infoEl.style.display = "none";
+		const header = s.controlEl;
+		header.classList.add("extra-styles-setting-header")
+		header.createSpan("x", (span) => {
+			span.innerText = "Style Name";
+			span.style.width = "15%";
+		});
+		header.createSpan("x", (span) => {
+			span.innerText = "Open";
+			span.style.width = "5%";
+		});
+		header.createSpan("x", (span) => {
+			span.innerText = "Close";
+			span.style.width = "5%";
+		});
+		header.createSpan("x", (span) => {
+			span.innerText = "Tag";
+			span.style.width = "10%";
+		});
+		header.createSpan("x", (span) => {
+			span.innerText = "CSS";
+			span.style.width = "55%";
+		});
+		header.createSpan("x", (span) => {
+			span.innerText = "";
+			span.style.width = "10%";
+		});
 		
 		this.plugin.settings.styleList.forEach((styleRule, index) => {
 			const s = new Setting(this.containerEl)

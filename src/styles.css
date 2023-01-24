@@ -46,11 +46,26 @@ textarea {
     justify-content: flex-end;
 }
 
-.extra-styles-setting-header input,
-.extra-styles-setting-header textarea
-{
-    background-color: inherit;
-    border: none;
-    padding-left: 0;
-    padding-right: 0;
+.extra-styles-setting-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    
+    align-items: center;
+    padding: 0.75em 0;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.extra-styles-setting-header span {
+    text-align: left;
+    vertical-align: middle;
+    padding: 0px 4px;
+    height: var(--input-height);
+}
+
+.extra-styles-settings-tab .setting-item-control input[type=text] {
+    padding: 0px 4px;
+}
+.extra-styles-settings-tab .setting-item-control textarea {
+    min-height: 10ex;
 }
